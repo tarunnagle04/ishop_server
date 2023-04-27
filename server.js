@@ -23,7 +23,7 @@ app.use(express.Router());
 
 const DB = async () => {
   try {
-    await mongoose.connect(process.env.URL || URI).then(() => {
+    await mongoose.connect(URI).then(() => {
       console.log("The connection to the database is successfull");
     });
   } catch (err) {
@@ -43,6 +43,6 @@ app.get("/products/details/api", async (req, res) => {
 
 app.listen(3001, () => {
   console.log(
-    `The server has Started Computing on the address http://localhost:${process.env.PORT}/`
+    `The server has Started Computing on the address http://localhost:${3001}/`
   );
 });
