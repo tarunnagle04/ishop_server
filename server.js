@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
 
+const URI="mongodb+srv://ishop:ishop@ishop.2p7rrkd.mongodb.net/?retryWrites=true&w=majority"
+
 dotenv.config();
 
 const Schema = new mongoose.Schema({
@@ -21,7 +23,7 @@ app.use(express.Router());
 
 const DB = async () => {
   try {
-    await mongoose.connect(process.env.URL).then(() => {
+    await mongoose.connect(process.env.URL || URI).then(() => {
       console.log("The connection to the database is successfull");
     });
   } catch (err) {
