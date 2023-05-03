@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 
-const URI="mongodb+srv://ishop:ishop@ishop.2p7rrkd.mongodb.net/?retryWrites=true&w=majority"
+// const URI =
+// "mongodb+srv://ishop:ishop@ishop.2p7rrkd.mongodb.net/?retryWrites=true&w=majority";
 
 dotenv.config();
 
@@ -20,10 +22,11 @@ const Schema = new mongoose.Schema({
 const product = new mongoose.model("Product", Schema);
 const app = express();
 app.use(express.Router());
+app.use(cors());
 
 const DB = async () => {
   try {
-    await mongoose.connect(URI).then(() => {
+    await mongoose.connect(process.env.URL || URI).then(() => {
       console.log("The connection to the database is successfull");
     });
   } catch (err) {
@@ -41,7 +44,7 @@ app.get("/products/details/api", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 8001, () => {
   console.log(
     `The server has Started Computing on the address http://localhost:${3001}/`
   );
